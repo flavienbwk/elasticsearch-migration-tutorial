@@ -32,9 +32,6 @@ services:
       cluster.routing.allocation.disk.threshold_enabled: "true"
       cluster.routing.allocation.disk.watermark.low: 93%
       cluster.routing.allocation.disk.watermark.high: 95%
-    depends_on:
-      - esA2
-      - esA3
     ulimits: 
       memlock:
         soft: 262144
@@ -110,11 +107,11 @@ services:
     networks:
       - elasticsearch_migration_network
 
-  kibana:
+  kibana_a:
     image: docker.elastic.co/kibana/kibana:7.17.8
     volumes:
       - type: bind
-        source: ./kibana.yml
+        source: ./kibana_a.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
       - "./certs:/usr/share/elasticsearch/config/certificates:ro"
@@ -122,8 +119,6 @@ services:
       - "5601:5601"
     networks:
       - elasticsearch_migration_network
-    depends_on:
-      - esA1
 
 volumes:
   esA1:
@@ -135,4 +130,5 @@ volumes:
 
 networks:
   elasticsearch_migration_network:
-    name: elasticsearch_migration_network
+    external:
+      name: elasticsearch_migration_network
