@@ -259,7 +259,7 @@ docker-compose -f clusterA.docker-compose.yml down
 docker volume rm elasticsearch-migration-tutorial_esA{1,2,3}
 docker-compose -f clusterB.docker-compose.yml down
 docker volume rm elasticsearch-migration-tutorial_esB{1,2,3}
-docker network delete elasticsearch_migration_network
+docker network rm elasticsearch_migration_network
 ```
 
 ## Credits
