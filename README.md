@@ -241,6 +241,15 @@ Let's benchmark Cluster B to know what's its maximum supported throughput for in
     }'
     ```
 
+    Decrease refresh interval to default :
+
+    ```bash
+    curl -X PUT $CURL_PRMS_CLUSTERB/_settings -H 'Content-Type: application/json' -d'
+    {
+        "refresh_interval": "1s"
+    }'
+    ```
+
 ## Clean this project
 
 Run the following commands to shutdown containers and remove volumes for this project :
