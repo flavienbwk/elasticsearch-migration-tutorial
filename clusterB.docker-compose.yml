@@ -8,14 +8,14 @@ services:
       - "esB1:/usr/share/elasticsearch/data"
       - "./certs:/usr/share/elasticsearch/config/certificates:ro"
     ports:
-      - "9200:9200"
+      - "9201:9200"
     environment:
       ES_JAVA_OPTS: "-Xmx512m -Xms512m"
       ELASTIC_PASSWORD: changeme
       node.name: esB1
       cluster.name: mycluster
       discovery.seed_hosts: esB2,esB3
-      cluster.initial_master_nodes: esB1,esB2,esB3
+      cluster.initial_master_nodes: esB1
       network.host: 0.0.0.0
       xpack.license.self_generated.type: basic
       xpack.monitoring.collection.enabled: "true"
@@ -32,9 +32,6 @@ services:
       cluster.routing.allocation.disk.threshold_enabled: "true"
       cluster.routing.allocation.disk.watermark.low: 93%
       cluster.routing.allocation.disk.watermark.high: 95%
-    depends_on:
-      - esB2
-      - esB3
     ulimits: 
       memlock:
         soft: 262144
@@ -53,7 +50,7 @@ services:
       node.name: esB2
       cluster.name: mycluster
       discovery.seed_hosts: esB1,esB3
-      cluster.initial_master_nodes: esB1,esB2,esB3
+      cluster.initial_master_nodes: esB1
       xpack.license.self_generated.type: basic
       xpack.monitoring.collection.enabled: "true"
       xpack.security.enabled: "true"
@@ -87,7 +84,7 @@ services:
       node.name: esB3
       cluster.name: mycluster
       discovery.seed_hosts: esB1,esB2
-      cluster.initial_master_nodes: esB1,esB2,esB3
+      cluster.initial_master_nodes: esB1
       xpack.license.self_generated.type: basic
       xpack.monitoring.collection.enabled: "true"
       xpack.security.enabled: "true"
@@ -110,16 +107,16 @@ services:
     networks:
       - elasticsearch_migration_network
 
-  kibana:
+  kibana_b:
     image: docker.elastic.co/kibana/kibana:7.17.8
     volumes:
       - type: bind
-        source: ./kibana.yml
+        source: ./kibana_b.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
       - "./certs:/usr/share/elasticsearch/config/certificates:ro"
     ports:
-      - "5601:5601"
+      - "5602:5601"
     networks:
       - elasticsearch_migration_network
     depends_on:
