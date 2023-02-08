@@ -1,6 +1,6 @@
 # Elasticsearch migration tutorial
 
-The companion repo to my blog post on migrating an Elasticsearch cluster without service disruption.
+The companion repo to [my blog post](https://medium.com/@flavienb/migrating-an-elasticsearch-cluster-with-0-downtime-ecd7dffbe674) on migrating an Elasticsearch cluster without service disruption.
 
 ![Migration architecture. Environment: providers ingest data to Cluster A (3 nodes). Cluster A will get migrated to Cluster B (3 nodes) through shards relocation.](./migration-strategy.jpg)
 
